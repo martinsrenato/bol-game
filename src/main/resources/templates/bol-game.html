@@ -6,6 +6,14 @@
     </head>
 
     <body>
-        <p th:text="'Hello, ' + ${name} + '!'" />
+        <p th:text="${game.toString()}" />
+
+        <h1>Sow</h1>
+        <form action="#" th:action="@{/bol-game/sow}" th:object="${sow}" th:method="post">
+            <input type="hidden" th:value="${game.getPlayerTurn()}" th:attr="name='playerTurn'" />
+            <!--<p>Player: <input disabled type="text" th:placeholder="${game.getPlayerTurn().name()}" th:field="*{playerTurn}" /></p>-->
+            <p>Pit: <input type="text" th:field="*{pitNumber}" /></p>
+            <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+        </form>
     </body>
 </html>

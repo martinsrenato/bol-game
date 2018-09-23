@@ -2,8 +2,7 @@
 <Configuration>
     <Properties>
         <Property name="SERVICE_HOME">.</Property>
-        <Property name="DEFAULT_PATTERN">%highlight{[%-5level]} %style{[%date{ISO8601}] [%t] [%c{1}]}{Magenta} %msg
-            %mdc%n
+        <Property name="DEFAULT_PATTERN">%highlight{[%-5level]} %style{[%date{ISO8601}] [%t] [%c{1}]}{Magenta} %msg%n
         </Property>
         <Property name="LOG_PATH">${sys:SERVICE_HOME}/logs</Property>
         <Property name="LOG_FILE">${sys:LOG_PATH}/application.log</Property>

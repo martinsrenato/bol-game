@@ -1,5 +1,5 @@
 package com.bol.game.model;
 
 public enum GameState {
-    NEW_GAME, IN_PROGRESS, GAME_OVER
+    IN_PROGRESS, PLAYER_1_WON, PLAYER_2_WON, GAME_TIED
 }
