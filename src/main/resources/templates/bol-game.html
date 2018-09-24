@@ -1,19 +1,80 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <title>THE BOL GAME</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    </head>
+<head>
+    <title>THE BOL GAME</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
 
-    <body>
-        <p th:text="${game.toString()}" />
+<body>
 
-        <h1>Sow</h1>
-        <form action="#" th:action="@{/bol-game/sow}" th:object="${sow}" th:method="post">
-            <input type="hidden" th:value="${game.getPlayerTurn()}" th:attr="name='playerTurn'" />
-            <!--<p>Player: <input disabled type="text" th:placeholder="${game.getPlayerTurn().name()}" th:field="*{playerTurn}" /></p>-->
-            <p>Pit: <input type="text" th:field="*{pitNumber}" /></p>
-            <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-        </form>
-    </body>
+<h1 align="center">THE BOL GAME</h1>
+
+<table border="1" align="center">
+    <tr align="center">
+        <th bgcolor="#D3D3D3">Player 1 - Main Pit</th>
+        <th:block th:each="i: ${#numbers.sequence(1, 6)}">
+            <th th:text="'Player 1 - Pit ' + ${7-i}"/>
+        </th:block>
+    </tr>
+    <tr align="center">
+        <td bgcolor="#D3D3D3">
+            <p th:text="${game.getPlayer1().getStonesOnMainPit()}"/>
+        </td>
+        <th:block th:each="i: ${#numbers.sequence(0, 5)}">
+            <td>
+                <form th:if="${game.getGameState().name() == 'IN_PROGRESS' and game.getPlayerTurn().name() == 'PLAYER_1' and game.getPlayer1().getStonesOnPit(5-i) > 0}"
+                      action="#" th:action="@{/bol-game/sow}" th:object="${sow}" th:method="post">
+                    <input type="hidden" th:value="'PLAYER_1'" th:attr="name='playerTurn'"/>
+                    <input type="hidden" th:value="${5-i}" th:attr="name='pitNumber'"/>
+                    <input type="submit" th:value="${game.getPlayer1().getStonesOnPit(5-i)}"/>
+                </form>
+                <p th:unless="${game.getGameState().name() == 'IN_PROGRESS' and game.getPlayerTurn().name() == 'PLAYER_1' and game.getPlayer1().getStonesOnPit(5-i) > 0}"
+                   th:text="${game.getPlayer1().getStonesOnPit(5-i)}"/>
+            </td>
+        </th:block>
+    </tr>
+</table>
+<br/>
+<table border="1" align="center">
+    <tr align="center">
+        <th:block th:each="i: ${#numbers.sequence(1, 6)}">
+            <th th:text="'Player 2 - Pit ' + ${i}"/>
+        </th:block>
+        <th bgcolor="#D3D3D3">Player 2 - Main Pit</th>
+    </tr>
+    <tr align="center">
+        <th:block th:each="i: ${#numbers.sequence(0, 5)}">
+            <td>
+                <form th:if="${game.getGameState().name() == 'IN_PROGRESS' and game.getPlayerTurn().name() == 'PLAYER_2' and game.getPlayer2().getStonesOnPit(i) > 0}"
+                      action="#" th:action="@{/bol-game/sow}" th:object="${sow}" th:method="post">
+                    <input type="hidden" th:value="'PLAYER_2'" th:attr="name='playerTurn'"/>
+                    <input type="hidden" th:value="${i}" th:attr="name='pitNumber'"/>
+                    <input type="submit" th:value="${game.getPlayer2().getStonesOnPit(i)}"/>
+                </form>
+                <p th:unless="${game.getGameState().name() == 'IN_PROGRESS' and game.getPlayerTurn().name() == 'PLAYER_2' and game.getPlayer2().getStonesOnPit(i) > 0}"
+                   th:text="${game.getPlayer2().getStonesOnPit(i)}"/>
+            </td>
+        </th:block>
+        <td bgcolor="#D3D3D3">
+            <p th:text="${game.getPlayer2().getStonesOnMainPit()}"/>
+        </td>
+    </tr>
+</table>
+
+<h1 th:if="${game.getGameState().name() == 'PLAYER_1_WON'}" style="color:#FF0000;" align="center">
+    PLAYER 1 WON THE GAME :D
+</h1>
+<h1 th:if="${game.getGameState().name() == 'PLAYER_2_WON'}" style="color:#FF0000;" align="center">
+    PLAYER 2 WON THE GAME :D
+</h1>
+<h1 th:if="${game.getGameState().name() == 'GAME_TIED'}" style="color:#FF0000;" align="center">
+    THIS GAME ENDED IN A TIE :/
+</h1>
+<br/>
+<br/>
+<p align="center">
+    <a th:href="@{/bol-game:restart}" >RESTART GAME</a>
+</p>
+
+</body>
 </html>

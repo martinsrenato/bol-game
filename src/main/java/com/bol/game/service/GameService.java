@@ -6,6 +6,7 @@ import com.bol.game.model.GameState;
 import com.bol.game.model.Player;
 import com.bol.game.model.PlayerTurn;
 import com.bol.game.model.Sow;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -18,6 +19,7 @@ import static com.bol.game.model.GameState.IN_PROGRESS;
 import static com.bol.game.model.GameState.PLAYER_1_WON;
 import static com.bol.game.model.GameState.PLAYER_2_WON;
 
+@Log4j2
 @Service
 @CacheConfig(cacheNames = "games")
 public class GameService {
@@ -78,6 +80,8 @@ public class GameService {
             } else {
                 gameState = GAME_TIED;
             }
+
+            log.info("Game finished [gameId={} gameState={}", game.getId(), gameState);
         }
 
         game.updatePlayers(player, opponent, sow.getPlayerTurn());
