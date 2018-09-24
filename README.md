@@ -2,10 +2,10 @@
 A simple web-based [Mancala game](https://en.wikipedia.org/wiki/Mancala)
 
 ## How to Run
-####Execute tests:
+#### Execute tests:
  `mvn clean install`
 
-####Starting application:
+#### Starting application:
  `mvn spring-boot:run`
 
 Alternatively, a jar package can be obtained with: `mvn clean package` <br/>
@@ -13,7 +13,7 @@ and run with: `java -jar target/com.bol-bol-game.jar`
 
 Either way, afterwards the game can be started at [http://localhost:8080](http://localhost:8080)
 
-##Possible Improvements / New features
+## Possible Improvements / New features
 * Better Interface
 * Database persistence, so games can be stopped and continued endlessly;
 * Configurable number of stones and pits per player;
@@ -21,7 +21,7 @@ Either way, afterwards the game can be started at [http://localhost:8080](http:/
 * Play versus CPU (Artificial Intelligence);
 * Online play
 
-##Stack
+## Stack
 * Java
 * SpringBoot
 * EhCache
