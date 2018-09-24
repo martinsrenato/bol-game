@@ -8,8 +8,9 @@
     <body>
         <h1>This is embarrassing... Something went wrong :(</h1>
 
-        <p>
-            <a th:href="@{/bol-game:restart}" >RESTART GAME</a>
-        </p>
+        <p th:if="${exception != null}" th:text="${exception}" style="color:#FF0000;"/>
+        <br/>
+        <p><a th:href="@{/bol-game}" >BACK TO GAME</a></p>
+        <p><a th:href="@{/bol-game:restart}" >RESTART GAME</a></p>
     </body>
 </html>
